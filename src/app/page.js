@@ -2,9 +2,9 @@
 import Image from "next/image";
 import trending, { trending_data } from "./data/trending"
 // import SearchForm from "../app/components/SearchForm/searchForm"
-// import HomeCarousel from "../app/components/HomeCarousel/homeCarousel"
+import HomeCarousel from "../app/components/HomeCarousel/homeCarousel"
 // import Discount from "../app/components/Discount/discount"
-// import HotelsByTypeComponent from "./components/FilterTypes/HotelsByTypeComponent"
+import HotelsByType from "../app/components/HotelsByType/HotelsByType.jsx"
 // import Shadform from "./components/ShadForm/shadform";
 
 
@@ -12,11 +12,11 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center space-y-4">
     <section 
-      className="bg-cover bg-blue-800 bg-center py-10 w-full" 
+      className="bg-cover bg-blue-800 bg-center py-60 w-full" 
       // style={{ backgroundImage: "url(/assets/pictures/homebg.jpg)" }}
     >
       <div className="container mx-auto text-left text-white">
-        <div className="flex items-center">
+        <div className="flex items-center flex-col lg:flex-row lg:space-x-4 space-y-4 lg:space-y-0">
           <div className="w-1/2">
             <h1 className="text-5xl text-white font-medium mb-6">Welcome to Bongo Hotels</h1>
             <p className="text-xl mb-12">
@@ -31,14 +31,7 @@ export default function Home() {
             </a>
           </div>
           <div className="w-1/2 pl-16">
-          {/* <Image 
-          src="/assets/pictures/homepic.jpg" // replace with your image path
-          alt="Description of image"
-          width={1000}
-          height={1000}
-          className="object-cover" // To control how the image is resized
-        /> */}
-        {/* <HomeCarousel /> */}
+        <HomeCarousel />
           </div>
         </div>
       </div>
@@ -93,7 +86,7 @@ export default function Home() {
       {/* <Discount /> */}
     </section>
     <section>
-      {/* <HotelsByTypeComponent /> */}
+      <HotelsByType />
     </section>
      
   </div>
