@@ -3,7 +3,7 @@ import Image from "next/image";
 import trending, { trending_data } from "./data/trending"
 // import SearchForm from "../app/components/SearchForm/searchForm"
 import HomeCarousel from "../app/components/HomeCarousel/homeCarousel"
-// import Discount from "../app/components/Discount/discount"
+import Discount from "../app/components/Discount/discount.jsx"
 import HotelsByType from "../app/components/HotelsByType/HotelsByType.jsx"
 // import Shadform from "./components/ShadForm/shadform";
 
@@ -83,7 +83,7 @@ export default function Home() {
     </section>
 
     <section>
-      {/* <Discount /> */}
+      <Discount />
     </section>
     <section>
       <HotelsByType />
