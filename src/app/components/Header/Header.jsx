@@ -73,7 +73,7 @@ export default function Example() {
             </div>
             <div className="flex text-sm">
               <Link href="/signin" className="p-2 ml-2 bg-white text-teal-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100">
-              Sign In
+              Sign Up
             </Link>
             <Link href="/signin" className="p-2 ml-2 bg-white text-teal-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100">
               Log in
