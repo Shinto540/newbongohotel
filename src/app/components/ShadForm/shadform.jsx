@@ -1,51 +1,59 @@
-// "use client"
+import React from 'react'
 
-// import { zodResolver } from "@hookform/resolvers/zod"
-// import { useForm } from "react-hook-form"
-// import { z } from "zod"
 
-// import { Button } from "@/components/ui/button"
-// import {
-//   Form,
-//   FormControl,
-//   FormDescription,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from "@/components/ui/form"
-// import { Input } from "@/components/ui/input"
 
-// const formSchema = z.object({
-//   username: z.string().min(2, {
-//     message: "Username must be at least 2 characters.",
-//   }),
-// })
 
-// export function ProfileForm() {
-//   // ...
+function shadform() {
+  return (
+//     <div className="flex items-center justify-between text-black border-separate border bg-blue-300 p-4 space-x-4 rounded-lg">
+//   {/* Item 1 */}
+//   <div className="text-black font-bold border-yellow-700 border-spacing-4">
+//     Location
+//   </div>
+  
+//   {/* Item 2 */}
+//   <div className="text-black font-bold">
+//     Date (For Check in and Check Out)
+//   </div>
+  
+//   {/* Item 3 */}
+//   <div className="text-black font-bold">
+//     Adults. Children . Rooms
+//   </div>
+  
+//   {/* Sign In Button */}
+//   <div>
+//     <button className="bg-blue-700 text-white font-bold py-2 px-4 border-rose-700 rounded-lg">
+//       Search
+//     </button>
+//   </div>
+// </div>
 
-//   return (
-//     <Form {...form}>
-//       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-//         <FormField
-//           control={form.control}
-//           name="username"
-//           render={({ field }) => (
-//             <FormItem>
-//               <FormLabel>Username</FormLabel>
-//               <FormControl>
-//                 <Input placeholder="shadcn" {...field} />
-//               </FormControl>
-//               <FormDescription>
-//                 This is your public display name.
-//               </FormDescription>
-//               <FormMessage />
-//             </FormItem>
-//           )}
-//         />
-//         <Button type="submit">Submit</Button>
-//       </form>
-//     </Form>
-//   )
-// }
+<div className="flex items-center justify-between text-black p-4 space-x-4 rounded-lg">
+  {/* Item 1 */}
+  <div className="text-black font-bold  border-yellow-700 border-2 hover:border-dashed p-2 rounded">
+    Location
+  </div>
+
+  {/* Item 2 */}
+  <div className="text-black font-bold  border-yellow-700 border-2 hover:border-dashed p-2 rounded">
+    Date (For Check in and Check Out)
+  </div>
+
+  {/* Item 3 */}
+  <div className="text-black font-bold  border-yellow-700 border-2 hover:border-dashed p-2 rounded">
+    Adults. Children . Rooms
+  </div>
+
+  {/* Search Button */}
+  <div className=" p-2 rounded">
+    <button className="bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+      Search
+    </button>
+  </div>
+</div>
+
+  )
+}
+
+export default shadform

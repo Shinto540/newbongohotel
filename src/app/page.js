@@ -5,7 +5,8 @@ import trending, { trending_data } from "./data/trending"
 import HomeCarousel from "../app/components/HomeCarousel/homeCarousel"
 import Discount from "../app/components/Discount/discount.jsx"
 import HotelsByType from "../app/components/HotelsByType/HotelsByType.jsx"
-// import Shadform from "./components/ShadForm/shadform";
+import Shadform from "../app/components/ShadForm/shadform.jsx";
+import Signin from "./components/Signin/signin";
 
 
 export default function Home() {
@@ -36,26 +37,21 @@ export default function Home() {
         </div>
       </div>
     </section>
+    
+
 
     {/* <section className="m-4 mt-0 -mb-14 px-2 lg:px-4 mx-auto max-w-full p-6 bg-white rounded-t-lg">
       <SearchForm />
      </section> */}
-<section>
-  {/* <Shadform /> */}
+<section className="border-yellow-700 rounded border-4">
+  <Shadform />
 </section>
 <section>
-{/* <div className="w-full h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-full max-w-screen-md p-4 bg-white shadow-lg rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Full Screen Container</h1>
-        <p className="text-gray-700">
-          This div takes up the full height andjnfdsgsdfgoekgoe,geor,giermgieig,necuerngcuienrgvcermirigfrjgierjvg rigvjierjgier herigjier gheug eieer erj te width of the viewport, with responsiveness for smaller screens.
-        </p>
-      </div>
-    </div> */}
+
   
 </section>
 
-    <section className="mx-auto max-w-full p-6 bg-white rounded-t-lg">
+    <section className="mx-auto max-w-full p-6 w-full bg-white rounded-t-lg">
       <div className="pt-5">
         <h3 className="text-xl font-bold">Trending Destinations</h3>
         <p className="font-light">

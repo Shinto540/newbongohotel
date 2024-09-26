@@ -16,8 +16,8 @@
 
 // import {PopoverGroup,} from '@headlessui/react'
 import Image from 'next/image'
-
-
+import Signin from '../Signin/signin'
+import Link from 'next/link'
 
 export default function Example() {
   
@@ -48,18 +48,21 @@ export default function Example() {
           </div>
           <div className="md:items-center md:w-auto flex">
             <div className="md:flex hidden">
+            <Link href="/#" className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smoot">
+              Home
+            </Link>
               <a
             href=""
             className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smooth"
           >
             Browse Hotels
           </a>
-              <a
-            href=""
+              <Link
+            href="/booking"
             className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smooth"
           >
-            Best Deals
-          </a>
+            Book A Hotel
+          </Link>
           <a
             href="#target-section"
             className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smooth block md:text-white mr-4"
@@ -69,8 +72,12 @@ export default function Example() {
         
             </div>
             <div className="flex text-sm">
-              <a className="p-2 ml-2 bg-white text-teal-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100" href="#">Login</a>
-              <a className="p-2 ml-2 bg-teal-500 text-gray-100 font-semibold leading-none border border-teal-600 rounded hover:border-transparent hover:bg-teal-600" href="#">Sign up</a>
+              <Link href="/signin" className="p-2 ml-2 bg-white text-teal-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100">
+              Sign In
+            </Link>
+            <Link href="/signin" className="p-2 ml-2 bg-white text-teal-500 font-semibold leading-none border border-gray-100 rounded hover:border-transparent hover:bg-gray-100">
+              Log in
+            </Link>
             </div>
           </div>
         </nav>

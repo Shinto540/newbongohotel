@@ -48,5 +48,19 @@ export const trending_data = [
         location: "United States of America",
         description: "92 Deals",
       },
+      {
+        id: 8,
+        src: "/assets/pictures/homepic.jpg",
+        title: "New York City",
+        location: "United States of America",
+        description: "92 Deals",
+      },
+      {
+        id: 9,
+        src: "/assets/pictures/homepic.jpg",
+        title: "New York City",
+        location: "United States of America",
+        description: "92 Deals",
+      },
   ];
   
