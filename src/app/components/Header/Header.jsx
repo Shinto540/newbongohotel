@@ -51,12 +51,12 @@ export default function Example() {
             <Link href="/#" className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smoot">
               Home
             </Link>
-              <a
-            href=""
-            className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smooth"
-          >
-            Browse Hotels
-          </a>
+         
+             <Link href="/browseHotels" className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smoot">
+              Browse Hotels
+            </Link>
+          
+  
               <Link
             href="/booking"
             className="text-white px-4 py-2 hover:underline hover:animate-in cursor-pointer scroll-smooth"

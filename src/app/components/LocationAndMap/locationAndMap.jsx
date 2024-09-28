@@ -62,6 +62,7 @@ export default function LocationAndMap() {
           </Marker>
         ))}
       </MapContainer>
+      
     </div>
   )
 }
