@@ -1,144 +1,228 @@
-import { useState } from 'react';
+'use client';
 
-const Filters = () => {
-  const [location, setLocation] = useState('');
-  const [checkInDate, setCheckInDate] = useState('');
-  const [checkOutDate, setCheckOutDate] = useState('');
-  const [people, setPeople] = useState(1);
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { Button } from '@/components/ui/button';
+import { BedDoubleIcon, CalendarIcon } from 'lucide-react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { format } from 'date-fns';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Perform filter action here (e.g., sending data to API or updating the state)
-    console.log({
-      location,
-      checkInDate,
-      checkOutDate,
-      people,
-    });
-  };
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { cn } from '@/lib/utils';
+// import { Calendar } from '@/components/ui/';
+
+const formSchema = z.object({
+  location: z.string().min(2).max(50),
+  dates: z.object({
+    from: z.date(),
+    to: z.date(),
+  }),
+  adults: z
+    .string()
+    .min(1, {
+      message: 'Please select at least 1 adult',
+    })
+    .max(12, { message: 'Max 12 adults Occupancy' }),
+  children: z.string().min(0).max(12, {
+    message: 'Max 12 children Occupancy',
+  }),
+  rooms: z.string().min(1, {
+    message: 'Please select at least 1 room',
+  }),
+});
+
+function SearchForm() {
+  const router = useRouter();
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      location: '',
+      dates: {
+        from: undefined,
+        to: undefined,
+      },
+      adults: '1',
+      children: '0',
+      rooms: '1',
+    },
+  });
+
+  function onSubmit(values) {
+    console.log(values);
+
+    const checkin_monthday = values.dates.from.getDate().toString();
+    const checkin_month = (values.dates.from.getMonth() + 1).toString();
+    const checkin_year = values.dates.from.getFullYear().toString();
+    const checkout_monthday = values.dates.to.getDate().toString();
+    const checkout_month = (values.dates.to.getMonth() + 1).toString();
+    const checkout_year = values.dates.to.getFullYear().toString();
+
+    const checkin = `${checkin_year}-${checkin_month}-${checkin_monthday}`;
+    const checkout = `${checkout_year}-${checkout_month}-${checkout_monthday}`;
+
+    // const url = new URL('https://www.booking.com/searchresults.html');
+    // url.searchParams.set('ss', values.location);
+    // url.searchParams.set('group_adults', values.adults);
+    // url.searchParams.set('group_children', values.children);
+    // url.searchParams.set('no_rooms', values.rooms);
+    // url.searchParams.set('checkin', checkin);
+    // url.searchParams.set('checkout', checkout);
+
+    router.push(`/`);
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col lg:flex-row gap-4 items-center">
-      {/* Location Filter */}
-      <div className="flex flex-col">
-        <label htmlFor="location" className="text-sm font-medium mb-1">Location</label>
-        <input
-          id="location"
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          placeholder="Enter location"
-          className="p-2 border rounded-md w-full"
-        />
-      </div>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col lg:flex-row lg:max-w-6xl lg:mx-auto items-center justify-center space-x-0 lg:space-x-2 space-y-4 lg:space-y-0 rounded-lg"
+      >
+        <div className="grid w-full lg:max-w-sm items-center gap-1.5">
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white flex">
+                  Location
+                  <BedDoubleIcon className="ml-2 h-4 w-4 text-white" />
+                </FormLabel>
 
-      {/* Date Filter */}
-      <div className="flex flex-col lg:flex-row gap-4">
-        <div className="flex flex-col">
-          <label htmlFor="checkInDate" className="text-sm font-medium mb-1">Check-In</label>
-          <input
-            id="checkInDate"
-            type="date"
-            value={checkInDate}
-            onChange={(e) => setCheckInDate(e.target.value)}
-            className="p-2 border rounded-md w-full"
+                <FormMessage />
+
+                <FormControl>
+                  <Input placeholder="London, UK" {...field} />
+                </FormControl>
+              </FormItem>
+            )}
           />
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="checkOutDate" className="text-sm font-medium mb-1">Check-Out</label>
-          <input
-            id="checkOutDate"
-            type="date"
-            value={checkOutDate}
-            onChange={(e) => setCheckOutDate(e.target.value)}
-            className="p-2 border rounded-md w-full"
+
+        <div className="grid w-full lg:max-w-sm flex-1 items-center gap-1.5">
+          <FormField
+            control={form.control}
+            name="dates"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel className="text-white">Dates</FormLabel>
+                <FormMessage />
+
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        id="date"
+                        name="dates"
+                        variant={'outline'}
+                        className={cn(
+                          'w-full lg:w-[300px] justify-start text-left font-normal',
+                          !field.value.from && 'text-muted-foreground'
+                        )}
+                      >
+                        <CalendarIcon className="mr-3 h-4 w-4 opacity-50" />
+                        {field.value?.from ? (
+                          field.value?.to ? (
+                            <>
+                              {format(field.value?.from, 'LLL dd, y')} -{' '}
+                              {format(field.value?.to, 'LLL dd, y')}
+                            </>
+                          ) : (
+                            format(field.value?.from, 'LLL dd, y')
+                          )
+                        ) : (
+                          <span>Select your dates</span>
+                        )}
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      initialFocus
+                      mode="range"
+                      selected={field.value}
+                      defaultMonth={field.value.from}
+                      onSelect={field.onChange}
+                      numberOfMonths={2}
+                      disabled={(date) =>
+                        date < new Date(new Date().setHours(0, 0, 0, 0))
+                      }
+                    />
+                  </PopoverContent>
+                </Popover>
+              </FormItem>
+            )}
           />
         </div>
-      </div>
 
-      {/* Number of People Filter */}
-      <div className="flex flex-col">
-        <label htmlFor="people" className="text-sm font-medium mb-1">Number of People</label>
-        <input
-          id="people"
-          type="number"
-          value={people}
-          onChange={(e) => setPeople(e.target.value)}
-          min="1"
-          className="p-2 border rounded-md w-full"
-        />
-      </div>
+        <div className="flex w-full items-center space-x-2">
+          <div className="grid items-center flex-1">
+            <FormField
+              control={form.control}
+              name="adults"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="text-white">Adults</FormLabel>
+                  <FormMessage />
+                  <FormControl>
+                    <Input type="number" placeholder="Adults" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
 
-      {/* Submit Button */}
-      <div className="flex mt-4 lg:mt-0">
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
-          Search
-        </button>
-      </div>
-    </form>
+          <div className="grid items-center flex-1">
+            <FormField
+              control={form.control}
+              name="children"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="text-white">Children</FormLabel>
+                  <FormMessage />
+                  <FormControl>
+                    <Input type="number" placeholder="Children" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="grid items-center flex-1">
+            <FormField
+              control={form.control}
+              name="rooms"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="text-white">Rooms</FormLabel>
+                  <FormMessage />
+                  <FormControl>
+                    <Input type="number" placeholder="rooms" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <div className="mt-auto">
+            <Button type="submit" className="bg-blue-500 text-base">
+              Search
+            </Button>
+          </div>
+        </div>
+      </form>
+    </Form>
   );
-};
+}
 
-export default Filters;
-
-
-// 'use client'
-// import { useRouter } from 'next/router';
-// import React from 'react';
-// import { useForm } from 'react-hook-form';
-// import * as z from "zod"
-// import {zodResolver} from "@hookform/resolvers/zod";
-
-// export const formSchema = z.object({
-//     location: z.string().min(2).max(50),
-//     dates: z.object({
-//       from: z.date(),
-//       to: z.date(),
-//     }),
-//     adults: z
-//       .string()
-//       .min(1, {
-//         message: "Please select at least 1 adult",
-//       })
-//       .max(12, { message: "Max 12 adults occupancy" }),
-//     children: z
-//       .string()
-//       .min(0)
-//       .max(12, {
-//         message: "Max 12 children occupancy",
-//       }),
-//     rooms: z.string().min(1, {
-//       message: "Select at least 1 room",
-//     }),
-//   });
-  
-// function shadForm(){
-//     const router = useRouter();
-//     const form = useForm<z.infer<formSchema>>({
-//         resolver: zodResolver(formSchema), 
-//         defaultValues: {
-//             location: ""
-//     dates: {
-//       from: undefined,
-//       to: undefined,
-//     },
-//     adults: "1",
-//     children: "1",
-//     rooms: "1",
-//         },
-//     });
-    
-// function onSubmit(values: z.infer<formSchema>){
-    
-// }
-
-
-
-//   return 
-//     <div>
-//       SearchForm
-//     </div>
-  
-// }
-
-// export default shadform;
+export default SearchForm;

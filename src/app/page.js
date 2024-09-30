@@ -7,6 +7,8 @@ import Discount from "../app/components/Discount/discount.jsx"
 import HotelsByType from "../app/components/HotelsByType/HotelsByType.jsx"
 import Shadform from "../app/components/ShadForm/shadform.jsx";
 import Signin from "./components/Signin/signin";
+import SearchForm from "../app/components/SearchForm/searchForm.jsx"
+
 
 
 export default function Home() {
@@ -46,10 +48,10 @@ export default function Home() {
 <section className="border-yellow-700 rounded border-4">
   <Shadform />
 </section>
-<section>
+{/* <section>
 
-  
-</section>
+  <SearchForm />
+</section> */}
 
     <section className="mx-auto max-w-full p-6 w-full bg-white rounded-t-lg">
       <div className="pt-5">
@@ -83,6 +85,9 @@ export default function Home() {
     </section>
     <section>
       <HotelsByType />
+    </section>
+    <section>
+    
     </section>
      
   </div>
